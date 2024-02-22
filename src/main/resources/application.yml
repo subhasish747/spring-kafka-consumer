@@ -1,0 +1,47 @@
+
+server: 
+  port: 8081
+spring:
+   kafka:
+    properties:
+      bootstrap-servers: <URL>:9092
+      ssl.endpoint.identification.algorithm: https
+      sasl.mechanism: PLAIN      
+      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username=<username> password=<pass>  ;
+      security.protocol: SASL_SSL
+    consumer:
+        bootstrap-servers: <URL>:9092
+        key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
+        value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+        group-id: library-event-listener-group
+   jmx:
+     enabled: true
+
+
+        
+management:
+  endpoint:
+     metrics:
+        enabled: true
+     health:
+        enabled: true
+  endpoints:
+     web:
+        exposure:
+            include:
+                - "health" 
+                - "info" 
+                - "env"       
+        
+logging:
+  level:
+    com:
+      sn: INFO
+    org:
+      springframework: INFO
+      
+      
+
+
+
+        
